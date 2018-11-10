@@ -1,50 +1,61 @@
-import express from 'express';
-import db from './db/db';
-import bodyParser from 'body-parser';
+'use strict';
 
-const app = express();
+var _express = require('express');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+var _express2 = _interopRequireDefault(_express);
 
-app.get('/api/test1', (reqq, res) => {
+var _db = require('./db/db');
+
+var _db2 = _interopRequireDefault(_db);
+
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var app = (0, _express2.default)();
+
+app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({ extended: false }));
+
+app.get('/api/test1', function (reqq, res) {
   res.status(200).send({
     success: 'true',
     message: 'test1 retrieved successfully',
-    res1: db
+    res1: _db2.default
   });
 });
 
-app.post('/api/test1', (req, res) => {
-  if(!req.body.title) {
+app.post('/api/test1', function (req, res) {
+  if (!req.body.title) {
     return res.status(400).send({
       success: 'false',
       message: 'title is required'
     });
-  }
-  else if(!req.body.description) {
+  } else if (!req.body.description) {
     return res.status(400).send({
       success: 'false',
       message: 'description is required'
     });
   }
 
-  const newElement = {
-    id: db.length + 1,
+  var newElement = {
+    id: _db2.default.length + 1,
     title: req.body.title,
     description: req.body.description
   };
 
-  db.push(newElement);
+  _db2.default.push(newElement);
 
   return res.status(201).send({
     success: 'true',
     message: 'new element added succesfully',
-    newElement
+    newElement: newElement
   });
 });
-const PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+app.listen(PORT, function () {
+  console.log('server running on port ' + PORT);
 });
