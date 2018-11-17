@@ -19,12 +19,21 @@ var app = (0, _express2.default)();
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(_express2.default.static(__dirname + '/static'));
+
 app.get('/', function (req, res) {
-  res.status(200).send({
-    success: 'true',
-    message: 'welcome to api',
-    res1: _db2.default
-  });
+  res.sendFile('index.html');
+  //It will find and locate index.html from View or Scripts
+});
+
+app.get('*', function (req, res) {
+  res.send(200);
 });
 
 var PORT = process.env.PORT || 5000;
