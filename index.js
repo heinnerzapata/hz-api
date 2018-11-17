@@ -19,6 +19,14 @@ var app = (0, _express2.default)();
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 
+app.get('/', function (reqq, res) {
+  res.status(200).send({
+    success: 'true',
+    message: 'welcome to api',
+    res1: _db2.default
+  });
+});
+
 app.get('/api/test1', function (reqq, res) {
   res.status(200).send({
     success: 'true',

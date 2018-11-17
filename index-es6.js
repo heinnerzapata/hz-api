@@ -7,6 +7,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get('/', (reqq, res) => {
+  res.status(200).send({
+    success: 'true',
+    message: 'welcome to api',
+    res1: db
+  });
+});
+
 app.get('/api/test1', (reqq, res) => {
   res.status(200).send({
     success: 'true',
