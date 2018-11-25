@@ -1,8 +1,13 @@
-import express from 'express';
-import db from './db/db';
-import bodyParser from 'body-parser';
+// import express from 'express';
+// import db from './db/db';
+// import bodyParser from 'body-parser';
 
-const app = express();
+var express = require('express');
+var db = require('./db/db');
+var bodyParser = require('body-parser');
+
+
+var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,11 +25,17 @@ app.get('/',function(req,res){
   //It will find and locate index.html from View or Scripts
 });
 
+app.post('/api/log',function(req,res){
+  console.log(req.body.email);
+  console.log(req.body.password);
+  //It will find and locate index.html from View or Scripts
+});
+
 app.get('*', function(req, res){
   res.send(200);
 });
 
-const PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
